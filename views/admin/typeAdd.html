@@ -1,0 +1,44 @@
+<style id="typeAdd" type="text/css">
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title"><b>新增商品分类</b></div>
+    </div>
+
+    <div class="panel-body">
+    	<div class="form-group">
+        	<div class="alert alert-dismissable" style="display: none;">
+            <button type="button" class="close">×</button>
+            <strong class="title"></strong>&nbsp;&nbsp;<span class="message"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">分类名称:</label>
+          <div class="col-md-10">
+            <input type="text" required="" placeholder="分类名称" id="typename" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">分类描述:</label>
+          <div class="col-md-10">
+            <input type="text" required="" placeholder="分类描述" id="typeinfo" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">父分类:</label>
+          <div class="col-md-10">
+            <select class="form-control" id="pid">
+                <option value="0">根分类</option>
+                <% types.forEach(function( type ){ %>
+                	<option value="<%= type.tid %>"><%= type.typename %></option>
+                <% }) %>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-10">
+            <button class="btn btn-info" id="sub" type="submit">确定</button>
+          </div>
+        </div>
+    </div>
+</div>
+</style>

@@ -1,0 +1,12 @@
+.idea
+node_modules
+npm-debug.log
+publish.sh
+*.DS_Store
+logs
+temps
+public/upfile
+.vscode
+typings
+typings.json
+.project

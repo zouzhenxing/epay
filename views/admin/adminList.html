@@ -1,0 +1,36 @@
+<style id="adminList" type="text/css">
+	<div class="panel panel-default">
+    <div class="panel-heading">
+    	管理员列表
+    	<a href="#/adminAdd" class="glyphicon glyphicon-plus pull-right">新增</a>
+    </div>
+	    <table class="table">
+	      <thead>
+	        <tr>
+	          <th>#</th>
+	          <th>管理员姓名</th>
+	          <th>帐号</th>
+	          <th>超级管理</th>
+	          <th>时间</th>
+	          <th>操作</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	      	<% admins.forEach(function( admin ){ %>
+	      		<tr>
+		          <td><%= admin.aid %></td>
+		          <td><%= admin.aname %></td>
+		          <td><%= admin.email %></td>
+		          <td><%= admin.issuper ? '否' : '是' %></td>
+		          <td><%= admin.addtime %></td>
+		          <td>
+		          	<% if(admin.issuper) { %>
+		          		<a href="#/adminDel/<%= admin.aid %>">删除</a>
+		          	<% } %>
+		          </td>
+		        </tr>
+	      	<% }) %>
+	      </tbody>
+	    </table>
+	</div>
+</style>

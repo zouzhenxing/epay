@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>后台登录</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="bookmark" href="favicon.ico"/>
+    <!-- site css -->
+    <link rel="stylesheet" href="css/site.min.css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="js/site.min.js"></script>
+    <script src="js/yuanku.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #303641;
+        color: #C1C3C6
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/css/yuanku.css"/>
+    <script type="text/javascript">
+    	$(function(){
+    		$("#username").val(localStorage.getItem("username"));
+    		$("#password").val(localStorage.getItem("password"));
+    		if( localStorage.getItem("username") ) {
+    			$("#rememberme").parent().addClass("checked");
+    		}
+    		
+    		$(".btn-primary").click(function(){
+    			var uname = $("#username").val();
+    			var password = $("#password").val();
+    			
+    			//验证输入正确性   正则表达式
+    			if( $.validate.isEmpty(uname) == false) {
+    				$(".form-signin .alert").alterMes({type:"danger",message:"用户名不能为空"});
+    				$("#username").select();
+    				return false;
+    			}
+    			
+    			//邮箱输入是否正确
+    			if( $.validate.isEmail(uname) == false ) {
+    				$(".form-signin .alert").alterMes({message:"用户名格式不正确!"});
+    				$("#username").select();
+    				return false;
+    			}
+    			
+    			if( $.validate.isEmpty(password) == false ) {
+    				$(".form-signin .alert").alterMes({message:"密码不能为空!"});
+    				$("#password").select();
+    				return false;
+    			}
+    			
+    			var rememberme = $("#rememberme").is(":checked");
+    			$._ajax({
+    				url :"/login/login",data : {username:uname,password:password,rememberme:rememberme}
+    			}).done(function( obj ) {
+    				 if( obj.code ) {
+//  				 		$(".form-signin .alert").alterMes({message:obj.msg});
+    				 		if( rememberme ) {
+    				 			localStorage.setItem("username",uname);
+    				 			localStorage.setItem("password",password);
+    				 		} else {
+    				 			localStorage.removeItem("username");
+    				 			localStorage.removeItem("password");
+    				 		}
+    				 		
+    				 		window.location.href = "/admin/index";
+    				 } else {
+    				 		$(".form-signin .alert").alterMes({type:"danger",message:obj.msg});
+    				 }
+    			}).fail(function() {
+    				 $(".form-signin .alert").alterMes({type:"danger",message:"服务器没有响应，请稍后重试!"});
+    			});
+    		});
+    	})
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <form class="form-signin" role="form">
+        <h3 class="form-signin-heading">请登陆</h3>
+        <div class="form-group">
+        	<div class="alert alert-dismissable" style="display: none;">
+            <button type="button" class="close">×</button>
+            <strong class="title"></strong>&nbsp;&nbsp;<span class="message"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="glyphicon glyphicon-user"></i>
+            </div>
+            <input type="text" class="form-control" name="username" id="username" placeholder="用户名" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class=" glyphicon glyphicon-lock "></i>
+            </div>
+            <input type="password"  class="form-control" name="password" id="password" placeholder="密码" autocomplete="off" />
+          </div>
+        </div>
+
+        <label class="checkbox">
+          <input type="checkbox" id="rememberme"> &nbsp; 记住我
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="button">登录</button>
+      </form>
+
+    </div>
+    <div class="clearfix"></div>
+    <br><br>
+  </body>
+</html>

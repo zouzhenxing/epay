@@ -1,0 +1,56 @@
+<style id="proAdd" type="text/css">
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title"><b>新增商品</b></div>
+    </div>
+
+    <div class="panel-body">
+    	<div class="form-group">
+        	<div class="alert alert-dismissable" style="display: none;">
+            <button type="button" class="close">×</button>
+            <strong class="title"></strong>&nbsp;&nbsp;<span class="message"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">商品名称:</label>
+          <div class="col-md-10">
+            <input type="text" required="" placeholder="商品名称" id="pname" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">价格:</label>
+          <div class="col-md-10">
+            <input type="number" required="" placeholder="价格" id="price" value = "0" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">库存:</label>
+          <div class="col-md-10">
+            <input type="number" required="" placeholder="库存" id="strock" value = "0" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">图片:</label>
+          <div class="col-md-10">
+            <input type="file" required="" id="imgpath" class="form-control">
+            <img id="showimg" src = "" style="height:150px;"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">商品类型:</label>
+          <div class="col-md-10">
+            <select class="form-control" id="type">
+                <% types.forEach(function( type ){ %>
+                	<option value="<%= type.tid %>"><%= type.typename %></option>
+                <% }) %>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-10">
+            <button class="btn btn-info" id="sub">确定</button>
+          </div>
+        </div>
+    </div>
+</div>
+</style>

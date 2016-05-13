@@ -1,0 +1,12 @@
+{
+	"info" : {
+		"suc" : {"code":1},
+		"loginsuc" : {"code":1,"msg":"登录成功"}
+	},
+	"error" : {
+		"loginerr" : {"code":0,"msg":"登录失败，用户或密码错误!"},
+		"adminAddErr" : {"code":0,"msg":"增加管理员失败,请稍后重试!"},
+		"typeAddErr" : {"code":0,"msg":"商品分类增加失败，请稍后重试!"},
+		"proAddErr" : {"code":0,"msg":"商品增加失败，请稍后重试!"}
+	}
+}
