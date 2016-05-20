@@ -60,19 +60,18 @@
     			$._ajax({
     				url :"/login/login",data : {username:uname,password:password,rememberme:rememberme}
     			}).done(function( obj ) {
-    				 if( obj.code ) {
-//  				 		$(".form-signin .alert").alterMes({message:obj.msg});
-    				 		if( rememberme ) {
-    				 			localStorage.setItem("username",uname);
-    				 			localStorage.setItem("password",password);
-    				 		} else {
-    				 			localStorage.removeItem("username");
-    				 			localStorage.removeItem("password");
-    				 		}
-    				 		
-    				 		window.location.href = "/admin/index";
-    				 } else {
-    				 		$(".form-signin .alert").alterMes({type:"danger",message:obj.msg});
+    				 if( obj.code == 0 ) {
+               	$(".form-signin .alert").alterMes({type:"danger",message:obj.msg});
+    				 } else if( obj.email ) {
+                if( rememberme ) {
+                  localStorage.setItem("username",uname);
+                  localStorage.setItem("password",password);
+                } else {
+                  localStorage.removeItem("username");
+                  localStorage.removeItem("password");
+                }
+                
+                window.location.href = "/admin/index";
     				 }
     			}).fail(function() {
     				 $(".form-signin .alert").alterMes({type:"danger",message:"服务器没有响应，请稍后重试!"});

@@ -17,6 +17,14 @@ exports.favicon = function( req,res,next ) {
 	res.redirect("/favicon.ico");
 }
 
+/*跨域中间件*/
+exports.crossDomain = function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    next();
+}
+
 exports.upfile = function( ep,file ) {
 	var start = file.originalname.lastIndexOf(".");
 	var extname = file.originalname.slice(start);

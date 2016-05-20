@@ -75,6 +75,37 @@ adminModule.prototype.proDel = function( ep,data ) {
 	});
 }
 
+//新闻管理
+adminModule.prototype.newsList = function( ep ) {
+	ep.on("conn",function( conn ) {
+		var sql = "select nid,ntitle,pubdate,a.aname from news n,admin a where n.author = a.aid";
+		conn.query(sql,ep.done("success"));
+		conn.release();
+	});
+}
+adminModule.prototype.newsAdd = function( ep,data ) {
+	ep.on("conn",function( conn ) {
+		var sql = "insert into news values(default,?,?,now(),?)";
+		conn.query(sql,data,ep.done("success"));
+		conn.release();
+	});
+}
+adminModule.prototype.newsDel = function( ep,data ) {
+	ep.on("conn",function( conn ) {
+		var sql = "delete from news where nid = ?";
+		conn.query(sql,data,ep.done("success"));
+		conn.release();
+	});
+}
+
+adminModule.prototype.preview = function( ep,data ) {
+	ep.on("conn",function( conn ) {
+		var sql = "select n.*,a.aname from news n,admin a where n.author = a.aid and nid = ?";
+		conn.query(sql,data,ep.done("success"));
+		conn.release();
+	});
+}
+
 module.exports = function() {
 	return new adminModule();
 }

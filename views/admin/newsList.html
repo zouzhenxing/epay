@@ -1,0 +1,33 @@
+<style id="newsList" type="text/css">
+	<div class="panel panel-default">
+    <div class="panel-heading">
+    	新闻列表
+    	<a href="#/newsAdd" class="glyphicon glyphicon-plus pull-right">新增</a>
+    </div>
+	    <table class="table">
+	      <thead>
+	        <tr>
+	          <th>#</th>
+	          <th>新闻标题</th>
+	          <th>作者</th>
+	          <th>时间</th>
+	          <th>操作</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	      	<% news.forEach(function( n ){ %>
+	      		<tr>
+		          <td><%= n.nid %></td>
+		          <td><%= n.ntitle %></td>
+		          <td><%= n.aname %></td>
+		          <td><%= n.pubdate %></td>
+		          <td>
+		          	<a href="#/newsDel/<%= n.nid %>">删除</a>&nbsp;
+                    <a href="#/preview/<%= n.nid %>">预览</a>
+		          </td>
+		        </tr>
+	      	<% }) %>
+	      </tbody>
+	    </table>
+	</div>
+</style>

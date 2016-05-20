@@ -8,6 +8,7 @@
     <link rel="bookmark" href="favicon.ico"/>
     <!-- site css -->
     <link rel="stylesheet" href="/css/site.min.css">
+    <link rel="stylesheet" href="/css/wysiwyg.css">
     <link rel="stylesheet" href="/css/yuanku.css">
   </head>
   <body>
@@ -43,7 +44,7 @@
                 <$ } $>
                 <li class="list-group-item"><a href="#/typeList"><i class="glyphicon glyphicon-th"></i>商品分类 </a></li>
                 <li class="list-group-item"><a href="#/proList"><i class="glyphicon glyphicon-shopping-cart"></i>商品管理 </a></li>
-                <li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>新闻管理 </a></li>
+                <li class="list-group-item"><a href="#/newsList"><i class="glyphicon glyphicon-list-alt"></i>新闻管理 </a></li>
               </ul>
           </div>
           
@@ -63,11 +64,17 @@
     <$- include('admin/typeList.html') $>
     <$- include('admin/typeAdd.html') $>
     <$- include('admin/productList.html') $>
-    <$- include('admin/productAdd.html') $>	
+    <$- include('admin/productAdd.html') $>
+    <$- include('admin/newsAdd.html') $>
+    <$- include('admin/newsList.html') $>
+    <$- include('admin/newspreview.html') $>
+    
   </body>
   <script type="text/javascript" src="/js/site.min.js"></script>
   <script src="/js/ejs.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="/js/router.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/js/jquery.hotkeys.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/js/bootstrap-wysiwyg.js" type="text/javascript" charset="utf-8"></script>
   <script src="/js/yuanku.js" type="text/javascript" charset="utf-8"></script>
   <script src="/js/adminRouter.js" type="text/javascript" charset="utf-8"></script>
 </html>

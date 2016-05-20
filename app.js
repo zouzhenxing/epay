@@ -31,10 +31,12 @@ global.loginControl = require("./control/loginControl.js")();
 global.adminIndexControl = require("./control/adminIndexControl.js")();
 global.productTypeControl = require("./control/productTypeControl.js")();
 global.productControl = require("./control/productControl.js")();
+global.newsControl = require("./control/newsControl.js")();
 
 //加载路由
 global.loginRouter = require("./router/loginRouter.js");
 global.adminRouter = require("./router/adminRouter.js");
+global.APIRouter = require("./router/APIRouter.js");
 
 var app = express();
 //配置body解析
@@ -47,6 +49,7 @@ app.use(session({
   rolling: true, //每次访问都在当前的时候点加一15分钟
   cookie: { maxAge:1000 * 60 * 15 }
 }));
+
 //模块引擎设置
 app.set("views","./views");
 app.set('view engine', 'html');
@@ -57,6 +60,7 @@ ejs.delimiter = "$";
 app.use("/admin/favicon.ico",util.favicon);
 app.use("/login",loginRouter);
 app.use("/admin",util.checkLogin,adminRouter);//进入admin验证是否登录
+app.use("/API",util.crossDomain,APIRouter);
 
 //静态服务器
 app.use(express.static('public'));

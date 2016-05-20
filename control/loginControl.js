@@ -9,9 +9,9 @@ loginControl.prototype.login = function( req,res,next ) {
 	//第三步，处理sql执行成功的操作
 	ep.on("success",function( rows ) {
 		req.session.admin = rows[0];
-		
+	
 		if( rows.length ) {
-			res.json(config.info.loginsuc).end();
+			res.json(rows[0]).end();
 		} else {
 			res.json(config.error.loginerr).end();
 		}

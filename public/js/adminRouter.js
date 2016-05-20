@@ -252,6 +252,79 @@ $(function() {
 		}
 	}
 	
+	//新闻路由
+	var newsList = {
+		url : "/newsList",
+		ajaxData : function() {
+			var that = this;
+			return $._ajax({
+				url : "/admin/news",
+				type : "get"
+			}).done(function( data ) {
+				that.data = data;
+			});
+		},
+		render : function() {
+			return ejs.render($("#newsList").html(),{news:this.data});
+		}
+	}
+	var newsAdd = {
+		url : "/newsAdd",
+		render : function() {
+			return $("#newsAdd").html();
+		},
+		bind : function() {
+			var t = $(this);
+			
+			t.find('#editor').wysiwyg();
+			t.find("#sub").click(function() {
+				var ntitle = t.find("#ntitle").val();
+				var ncontent = t.find("#editor").html();
+				//验证
+				//提交
+				$._ajax({
+					url : "/admin/news",
+					data : {ntitle:ntitle,ncontent:ncontent}
+				}).done(function( obj ) {
+					if( obj.code ) {
+						location.href = "/admin/index#/newsList";
+					} else {
+						t.find(".alert").alterMes({type:"danger",message:obj.msg});
+					}
+				});
+			});
+		}
+	}
+	
+	var newsDel = {
+		url : "/newsDel/:nid",
+		ajaxData : function() {
+			var that = this;
+			$._ajax({
+				url : "/admin/news/" + that.params.nid,
+				type : "delete"
+			}).done(function(){
+				location.href = "/admin/index#/newsList";
+			});
+			return false;
+		}
+	}
+	
+	var preview = {
+		url : "/preview/:nid",
+		ajaxData : function() {
+			var that = this;
+			return $._ajax({
+				url : "/admin/news/" + that.params.nid,
+				type : "get"
+			}).done(function( data ){
+				that.data = data;
+			});
+		},
+		render : function() {
+			return ejs.render($("#newspreview").html(),{n:this.data[0]});
+		}
+	}
 	
 	var home = {
 		url : "/",
@@ -270,5 +343,9 @@ $(function() {
 		  .push(proList)
 		  .push(proAdd)
 		  .push(proDel)
+		  .push(newsList)
+		  .push(newsAdd)
+		  .push(newsDel)
+		  .push(preview)
 		  .setDefault('/').init();
 });
