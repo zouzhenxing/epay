@@ -37,6 +37,7 @@ global.newsControl = require("./control/newsControl.js")();
 global.loginRouter = require("./router/loginRouter.js");
 global.adminRouter = require("./router/adminRouter.js");
 global.APIRouter = require("./router/APIRouter.js");
+global.wechat = require("./router/wechat.js");
 
 var app = express();
 //配置body解析
@@ -61,6 +62,7 @@ app.use("/admin/favicon.ico",util.favicon);
 app.use("/login",loginRouter);
 app.use("/admin",util.checkLogin,adminRouter);//进入admin验证是否登录
 app.use("/API",util.crossDomain,APIRouter);
+app.use("/wechat",wechat);
 
 //静态服务器
 app.use(express.static('public'));
