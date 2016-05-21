@@ -1,0 +1,21 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+}
+.page {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 50px;
+	overflow-y: scroll;
+}
+.page .hd {
+	width: 100%;
+	line-height: 3;
+}
+
+.page .hd .page_title {
+	text-align: center;
+}

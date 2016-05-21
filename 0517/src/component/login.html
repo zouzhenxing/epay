@@ -1,0 +1,82 @@
+<template>
+    <div class="page animated" transition="left" transition-mode="out-in" keep-alive>
+        <div class="hd">
+            <h1 class="page_title">请登录</h1>
+        </div>
+        
+        <div class="bd">
+            <div class="weui_cells weui_cells_form">
+                <div :class="['weui_cell', {weui_cell_warn : emerr}]">
+                    <div class="weui_cell_hd"><label class="weui_label">邮箱</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" v-model="email" @focus="focus('email')" type="text" placeholder="请输入邮箱">
+                    </div>
+                    <div class="weui_cell_ft" v-show="emerr">
+                        <i class="weui_icon_warn"></i>
+                    </div>
+                </div>
+                <div :class="['weui_cell', {weui_cell_warn : pwderr}]">
+                    <div class="weui_cell_hd"><label class="weui_label">密码</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" v-model="password" @focus="focus('password')" type="password" placeholder="请输入密码">
+                    </div>
+                    <div class="weui_cell_ft" v-show="pwderr">
+                        <i class="weui_icon_warn"></i>
+                    </div>
+                </div>
+                <a href="javascript:;" class="weui_btn weui_btn_primary" @click="sub">按钮</a>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    export default {
+        data() {
+            return {
+                email : '',
+                password : '',
+                emerr : false,
+                pwderr : false
+            }
+        },
+        methods : {
+            sub() {
+                if( this.email == '' ) {
+                    this.emerr = true;
+                    return;
+                }
+                
+                if( this.password == '' ) {
+                    this.pwderr = true;
+                    return;
+                }
+                
+                $.ajax({
+                    url : root + '/API/login',
+                    type : 'post',
+                    dataType : 'json',
+                    data : {
+                        username : this.email,
+                        password : this.password
+                    }
+                }).done(( obj )=>{
+                    if( obj.code == 0 ) {
+                        alert(obj.msg);
+                    } else {
+                        localStorage.setItem("admin",JSON.stringify(obj));
+                        var path = sessionStorage.getItem("nextPath");
+                        route.go({path : path});
+                    }
+                });
+            },
+            focus( name ) {
+                if( name == 'email' ) {
+                    this.emerr = false;
+                } 
+                if( name == 'password' ) {
+                    this.pwderr = false;
+                }
+            }
+        }
+    }
+</script>

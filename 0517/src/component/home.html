@@ -1,0 +1,26 @@
+<template>
+	<div class="page animated" :transition="trans" transition-mode="out-in" 
+		 v-touch:swipeleft="left" v-touch:swiperight="right" keep-alive>
+		这是首页
+	</div>
+</template>
+<script type="text/javascript">
+	export default {
+		data() {
+			return {
+				trans : 'left'
+			}
+		},
+		methods : {
+			left : function() {
+				this.trans = 'left';
+				route.go({
+					path : '/productlist'
+				});
+			},
+			right : function() {
+				this.trans = 'right';
+			}
+		}
+	}
+</script>

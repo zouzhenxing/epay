@@ -1,0 +1,51 @@
+<template>
+	<div class="page animated" :transition="trans" 
+		 transition-mode="out-in" v-touch:swipeleft="left" v-touch:swiperight="right" keep-alive>
+		
+		<template v-for="pro in products">
+		<div class="weui_cells_title">{{pro.typename}}</div>
+		<div class="weui_cells weui_cells_access">
+			<a class="weui_cell" href="javascript:;" v-for="child in pro.childs">
+				<div class="weui_cell_bd weui_cell_primary">
+					<p>{{child.typename}}</p>
+				</div>
+				<div class="weui_cell_ft">
+				</div>
+			</a>
+		</div>
+		</template>
+	</div>
+</template>
+<script>
+	export default {
+		data() {
+			return {
+				trans : 'left',
+				products : [
+					{typename:'食品',childs:[
+						{typename:'小馒头'},
+						{typename:'牛肉'},
+					]},
+					{typename:'衣服',childs:[
+						{typename:'裤子'},
+						{typename:'上衣'},
+					]},
+				]
+			}
+		},
+		methods : {
+			left : function() {
+				this.trans = 'left';
+				route.go({
+					path : '/newslist'
+				});
+			},
+			right : function() {
+				this.trans = 'right';
+				route.go({
+					path : '/home'
+				});
+			}
+		}
+	}
+</script>

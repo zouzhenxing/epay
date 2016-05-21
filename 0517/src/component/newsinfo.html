@@ -1,0 +1,35 @@
+<template>
+    <div class="page animated" transition="left" transition-mode="out-in" keep-alive>
+        <div class="hd">
+            <h1 class="page_title">{{news.ntitle}}</h1>
+        </div>
+        <div class="bd">
+            <article class="weui_article">
+                {{{ news.content }}}
+            </article>
+        </div>
+    </div>
+    <loading :isshow="$loadingRouteData"></loading>
+</template>
+<script>
+    export default {
+        data() {
+            return {
+                news : {}
+            }
+        },
+        route : {
+            data( transition ) {
+                var nid = transition.to.params.nid;
+                return $.ajax({
+                    url : root + "/API/news/" + nid,
+                    dataType : 'json'
+                }).then(( ne )=>{
+                    return {
+                        news : ne[0]
+                    }
+                });
+            }
+        }
+    }
+</script>

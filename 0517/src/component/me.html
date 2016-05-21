@@ -1,0 +1,34 @@
+<template>
+	<div class="page animated" :transition="trans" 
+		 transition-mode="out-in" v-touch:swipeleft="left" v-touch:swiperight="right" keep-alive>
+		用户名：{{admin.email}}
+		姓名:{{admin.aname}}
+	</div>
+</template>
+<script>
+	export default {
+		data() {
+			return {
+				trans : 'left',
+				admin : {}
+			}
+		},
+		methods : {
+			left : function() {
+				this.trans = 'left';
+			},
+			right : function() {
+				this.trans = 'right';
+				route.go({
+					path : '/newslist'
+				});
+			}
+		},
+		route : {
+			data : function(transition) {
+				var admin = JSON.parse(localStorage.getItem("admin"));
+				transition.next({admin:admin});
+			}
+		}
+	}
+</script>

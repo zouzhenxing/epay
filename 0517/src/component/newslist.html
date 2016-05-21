@@ -1,0 +1,64 @@
+<template>
+	<div class="page weui_panel animated" :transition="trans" 
+		 transition-mode="out-in" v-touch:swipeleft="left" v-touch:swiperight="right" keep-alive>
+		<div class="weui_panel_bd">
+			<div class="weui_media_box weui_media_text" v-for="n in news">
+				<h4 class="weui_media_title">{{n.ntitle}}</h4>
+				<p class="weui_media_desc">这是说明</p>
+				<ul class="weui_media_info">
+					<li class="weui_media_info_meta">{{n.aname}}</li>
+					<li class="weui_media_info_meta">{{n.pubdate}}</li>
+					<li class="weui_media_info_meta weui_media_info_meta_extra">
+						<a herf="javascript:;"  v-link="{path:'/newsinfo/' + n.nid}">查看详情</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<loading :isshow="$loadingRouteData"></loading>
+	</div>
+</template>
+<script>
+	export default {
+		data() {
+			return {
+				trans : 'left',
+				news : []
+			}
+		},
+		methods : {
+			left : function() {
+				this.trans = 'left';
+				route.go({
+					path : '/me'
+				});
+			},
+			right : function() {
+				this.trans = 'right';
+				route.go({
+					path : '/productlist'
+				});
+			}
+		},
+		route : {
+			data : function( transition ) {
+				//如果是第一次进入本组件，获取数据
+				let ne = sessionStorage.getItem("news");
+				if( ne ) {
+					transition.next({news:JSON.parse(ne)});
+				} else {
+					//从服务器取出新闻列表数据
+					return $.ajax({
+						url : root + "/API/news",
+						dataType : 'json'
+					}).then((news)=>{
+						sessionStorage.setItem("news",JSON.stringify(news));
+						return {
+							news : news
+						}
+					});
+				}
+			}
+		}
+	}
+</script>
